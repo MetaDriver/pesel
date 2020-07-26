@@ -1,14 +1,12 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <img
+          src="@/assets/img/pesel-logo.svg"
+          class="pesel-logo my-3"
         />
-      </v-col>
+      </div>
 
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">
@@ -87,8 +85,8 @@
           </a>
         </v-row>
       </v-col>
-    </v-row>
-  </v-container>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -149,3 +147,13 @@ export default {
   })
 }
 </script>
+
+<style lang="scss">
+
+  .pesel-logo {
+    width: 100px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+</style>

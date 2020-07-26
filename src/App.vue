@@ -2,65 +2,86 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="black"
+      class="app-header"
+      height="100px"
       dark
     >
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <router-link :to="{ name: 'Home' }">
+          <img class="pesel-logo my-3" src="@/assets/img/pesel-logo.svg"/>
+        </router-link>
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer/>
+          <div class="nav" style="color: white">
+            <router-link :to="{ name: 'Home' }">Home</router-link>
+            &nbsp;
+            <router-link :to="{ name: 'Favorites' }">Favorites</router-link>
+          </div>
+      <v-spacer/>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <v-icon medium
+              @click="inFavorite = !inFavorite"
+      >{{inFavorite? 'mdi-heart': 'mdi-heart-outline'}}
+      </v-icon>
+
+      <!--<v-spacer></v-spacer>-->
+
+      <!--<v-btn-->
+      <!--href="https://github.com/vuetifyjs/vuetify/releases/latest"-->
+      <!--target="_blank"-->
+      <!--text-->
+      <!--&gt;-->
+      <!--<span class="mr-2">Latest Release</span>-->
+      <!--<v-icon>mdi-open-in-new</v-icon>-->
+      <!--</v-btn>-->
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <router-view> Loading... </router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+//  import HelloWorld from './components/HelloWorld';
+import { mapState } from 'vuex';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld
+  //    HelloWorld
   },
 
   data () {
     return {
-      test: '',
-      test2: ''
-    }
+      inFavorite: false,
+    };
+  },
+  computed: {
+    ...mapState(['allBreeds', 'imgAllDogs']),
   },
   mounted () {
-    this.test = 'test'; this.test2 = 'test2'
+    this.$store.dispatch('getAllBreeds').then(() => {
+      this.$nextTick(() => console.log('$store.dispatch(\'getAllBreeds\')>>', this.allBreeds));
+    });
   }
 }
 </script>
+
+<style lang="scss">
+
+  .app-header.v-sheet.v-app-bar:not(.v-sheet--outlined) {
+    background: hsl(252, 11%, 8%);
+    box-shadow: 0px 8px 16px hsla(0, 0%, 0%, 0.55);
+  }
+
+  .v-application .nav {
+    a {
+      color: white;
+      margin: 0 10px;
+    }
+  }
+</style>

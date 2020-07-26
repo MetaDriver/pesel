@@ -1,0 +1,17 @@
+
+//  Grid fixes
+
+.container {
+   padding: 15px;
+}
+
+.row {
+   margin-left: -15px;
+   margin-right: -15px;
+}
+
+[class|=col], [class*=col-], [class~=col] {
+   padding: 15px;
+}
+
+
