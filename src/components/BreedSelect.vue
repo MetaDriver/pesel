@@ -12,15 +12,19 @@
             <v-chip class="ma-2 ml-4 current" v-if="!!breedList && !!breedList.current.parent"
                     outlined
                     close
+                    close-icon="$close"
                     color="#3C59F0"
                     small
+                    @click:close="e=>navigateTop(true)"
                     @click="e=>navigateTop(true)"
             >{{$route.params.breed}}</v-chip>
             <v-chip class="ma-2 ml-4 current" v-if="!!breedList && !!$route.params.sub"
                     outlined
                     close
+                    close-icon="$close"
                     color="#3C59F0"
                     small
+                    @click:close="e=>navigateTop(false)"
                     @click="e=>navigateTop(false)"
             >{{$route.params.sub}}</v-chip>
 
