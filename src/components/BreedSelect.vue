@@ -208,7 +208,8 @@ export default {
     }
 
     .bottom {
-      width: 100%;
+      margin: 0 -10px;
+      width: calc(100% + 20px);
       height: 0.001px;
       /*padding: 10px 0;*/
       overflow: hidden;
@@ -227,7 +228,7 @@ export default {
         line-height: 28px;
         display: flex;
         align-items: center;
-        margin: 8px 4px;
+        margin: 8px 10px;
         color: hsl(0, 0%, 38%);
       }
       .v-chip {
