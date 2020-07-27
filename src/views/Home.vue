@@ -1,22 +1,31 @@
 <template>
-    <div class="Home">
+    <div class="Home Breed">
 
       <PageLayout>
 
-        <div class="container">
+        <div slot="pgHeader" class="row pa-0 pg-head">
+            <div class="col-12 py-0">
+              <BreedSelect />
+            </div>
+        </div>
 
+        <div class="container img-list" v-swap-hadler="{handler: swap, margin: ()=> swapMargin}">
           <div class="row" v-if="images">
-
             <div class="col-12">
-              <ImgCard class="top-card" :image="images.car" />
+              <ImgCard class="top-card" :image="imgs.car" />
             </div>
 
-            <div class="col-4" v-for="img in images.cdr" :key="img.slice(-20)">
+            <div class="col-4" v-for="(img, idx) in imgs.cdr" :key="img.slice(-20)+idx">
               <ImgCard :image="img" />
             </div>
-
           </div>
 
+          <div class="row justify-center mt-12">
+            <v-progress-circular
+              indeterminate
+              color="primary"
+            ></v-progress-circular>
+          </div>
         </div>
 
       </PageLayout>
@@ -27,40 +36,65 @@
 <script>
 import { mapState } from 'vuex';
 
+const SWAP_DELTA = 150;
+const SWAP_LIMIT = 18;
+
 export default {
   name: 'Home',
   components: {},
   props: [],
   data () {
     return {
-      sorted: false,
+      //      sorted: false,
+      swapMargin: SWAP_DELTA,
     }
   },
   computed: {
-    ...mapState(['allBreeds', 'imgAllDogs']),
-    filteredImgs () {
-      if (!this.imgAllDogs) { return null; }
-      const imgs = [...this.imgAllDogs];
+    ...mapState(['images', 'sortByName']),
+
+    //    ...mapGetters(['breedList']),
+
+    sortedImgs () {
+      function name (v) { return v.split('/')[4]; }
+      if (!this.images) { return null; }
+      const imgs = [...this.images];
+      if (this.sortByName) {
+        imgs.sort((a, b) => (name(a) < name(b) ? -1 : 1))
+      }
       return imgs;
     },
-    images () {
-      if (!this.filteredImgs) { return null; }
+
+    imgs () {
+      if (!this.sortedImgs) { return null; }
       return {
-        car: this.filteredImgs[0],
-        cdr: this.filteredImgs.slice(1),
+        car: this.sortedImgs[0],
+        cdr: this.sortedImgs.slice(1),
       };
     },
   },
-  methods: {},
+  methods: {
+    swap () {
+      this.swapMargin = -1;
+      console.log('swap !!!!');
+      this.$store.dispatch('getAllBreedsImages', SWAP_LIMIT).then(() => {
+        this.swapMargin = SWAP_DELTA
+      });
+    }
+  },
   mounted () {
-    this.$store.dispatch('getAllBreedsImages');
+    this.$store.commit('images', null);
+    this.$store.dispatch('getAllBreedsImages', SWAP_LIMIT + 1);
+    this.$store.commit('currentBreed', {
+      type: 'all',
+      title: 'Все пёсели',
+      parent: null,
+    });
   },
 }
 </script>
 
 <style lang="scss">
-    .Home {
-        width: 100%;
-        height: auto;
-    }
+  .Home {
+
+  }
 </style>

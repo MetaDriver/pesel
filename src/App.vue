@@ -13,19 +13,22 @@
         </router-link>
       </div>
 
-      <v-spacer/>
-          <div class="nav" style="color: white">
-            <router-link :to="{ name: 'Home' }">Home</router-link>
-            &nbsp;
-            <router-link :to="{ name: 'Favorites' }">Favorites</router-link>
-          </div>
+      <!--<v-spacer/>-->
+
+          <!--<div class="nav" style="color: white">-->
+            <!--<router-link :to="{ name: 'Home' }">Home</router-link>-->
+            <!--&nbsp;-->
+            <!--<router-link :to="{ name: 'Favorites' }">Favorites</router-link>-->
+          <!--</div>-->
+
       <v-spacer/>
 
-      <v-icon medium
-              @click="inFavorite = !inFavorite"
-      >{{inFavorite? 'mdi-heart': 'mdi-heart-outline'}}
-      </v-icon>
-
+      <div class="favorites-link" :class="{active : inFavorite}"
+           @click="inFavorite = !inFavorite">
+        <span class="mr-2">Избранные пёсели</span>
+        <v-icon medium :color="inFavorite ? '#ffffff' : '#626262'"
+             >mdi-heart-outline</v-icon>
+      </div>
       <!--<v-spacer></v-spacer>-->
 
       <!--<v-btn-->
@@ -57,11 +60,18 @@ export default {
 
   data () {
     return {
-      inFavorite: false,
     };
   },
   computed: {
-    ...mapState(['allBreeds', 'imgAllDogs']),
+    ...mapState(['allBreeds', 'images']),
+    inFavorite: {
+      get () {
+        return this.$route.name === 'Favorites';
+      },
+      set (v) {
+        this.$router.push({ name: v ? 'Favorites' : 'Home' });
+      }
+    },
   },
   mounted () {
     this.$store.dispatch('getAllBreeds').then(() => {
@@ -82,6 +92,23 @@ export default {
     a {
       color: white;
       margin: 0 10px;
+    }
+  }
+  .favorites-link {
+    width: auto;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: hsl(0, 0%, 38%);
+    .v-icon {
+      color: hsl(0, 0%, 38%);
+    }
+    &.active {
+      color: hsl(0, 0%, 100%);
+      .v-icon {
+        color: hsl(0, 0%, 100%);
+      }
     }
   }
 </style>

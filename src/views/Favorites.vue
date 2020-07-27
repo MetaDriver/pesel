@@ -1,13 +1,13 @@
 <template>
-    <div class="Favorites">
+    <div class="Favorites Breed">
 
       <PageLayout>
-        <div class="container">
+        <div class="container img-list">
 
           <div class="row" v-if="favorites">
 
-            <div class="col-4" v-for="item in favorites" :key="item.img.slice(-20)">
-              <ImgCard :image="item.img" />
+            <div class="col-4" v-for="img in favorites" :key="img.slice(-20)">
+              <ImgCard :image="img" />
             </div>
 
           </div>
@@ -39,7 +39,6 @@ export default {
 
 <style lang="scss">
   .Favorites {
-    width: 100%;
-    height: auto;
+
   }
 </style>

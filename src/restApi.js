@@ -12,9 +12,18 @@ const restApi = {
     return Vue.axios.get(base + 'breeds/list/all');
   },
 
-  getAllBreedsImages () {
-    return Vue.axios.get(base + 'breeds/image/random/50');
+  getAllBreedsImages (count) {
+    return Vue.axios.get(base + `breeds/image/random/${count}`);
   },
+
+  getImagesByBreed ({ breed, sub, count }) {
+    const url = base + `breed/${breed}/` + (sub ? `${sub}/` : '') + `images/random/${count}`;
+    return Vue.axios.get(url);
+  },
+
+  // getImagesBySubBreed (breed, sub) {
+  //  return Vue.axios.get(base + `breed/${breed}/${sub}/images/random/50`);
+  // },
 
 };
 
