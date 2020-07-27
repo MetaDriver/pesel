@@ -100,16 +100,16 @@ export default {
       height: 100%;
       max-height: 100%;
 
-    .pg-head {
-      flex: 0 0 auto;
-    }
-    .img-list {
-      flex: 1 1 100%;
-      overflow-y: scroll;
-      width: calc(100% + 25px);
-      margin-right: -25px;
-      padding-right: 25px;
-      padding-bottom: 120px;
-    }
+      .pg-head {
+        flex: 0 0 auto;
+      }
+      .img-list {
+        flex: 1 1 100%;
+        overflow-y: scroll;
+        width: calc(100% + 25px);
+        /*margin-right: -25px;*/
+        padding-right: 25px;
+        padding-bottom: 120px;
+      }
     }
 </style>

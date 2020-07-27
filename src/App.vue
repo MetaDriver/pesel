@@ -29,16 +29,7 @@
         <v-icon medium :color="inFavorite ? '#ffffff' : '#626262'"
              >mdi-heart-outline</v-icon>
       </div>
-      <!--<v-spacer></v-spacer>-->
 
-      <!--<v-btn-->
-      <!--href="https://github.com/vuetifyjs/vuetify/releases/latest"-->
-      <!--target="_blank"-->
-      <!--text-->
-      <!--&gt;-->
-      <!--<span class="mr-2">Latest Release</span>-->
-      <!--<v-icon>mdi-open-in-new</v-icon>-->
-      <!--</v-btn>-->
     </v-app-bar>
 
     <v-main>
@@ -48,7 +39,6 @@
 </template>
 
 <script>
-//  import HelloWorld from './components/HelloWorld';
 import { mapState } from 'vuex';
 
 export default {
