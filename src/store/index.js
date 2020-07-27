@@ -82,6 +82,16 @@ export default new Vuex.Store({
       }, {});
       return { current: { type, title, parent }, groups };
     },
+    sortedImgs (state) {
+      function name (v) { return v.split('/')[4]; }
+      if (!state.images) { return null; }
+      let imgs = state.images;
+      if (state.sortByName) {
+        imgs = [...state.images];
+        imgs.sort((a, b) => (name(a) < name(b) ? -1 : 1));
+      }
+      return imgs;
+    },
   },
 
   plugins: [persistedState],

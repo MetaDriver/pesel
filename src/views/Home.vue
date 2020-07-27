@@ -10,7 +10,7 @@
         </div>
 
         <div class="container img-list" v-swap-hadler="{handler: swap, margin: ()=> swapMargin}">
-          <div class="row" v-if="images">
+          <div class="row" v-if="imgs">
             <div class="col-12">
               <ImgCard class="top-card" :image="imgs.car" />
             </div>
@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
-const SWAP_DELTA = 150;
-const SWAP_LIMIT = 18;
+const SWAP_DELTA = 150; // подкачка начинается когда до каонца страницы остаётся 150px
+const SWAP_LIMIT = 21; // В требованиях 20. Но 20 не делится на 3 :)
 
 export default {
   name: 'Home',
@@ -45,24 +45,12 @@ export default {
   props: [],
   data () {
     return {
-      //      sorted: false,
       swapMargin: SWAP_DELTA,
     }
   },
   computed: {
-    ...mapState(['images', 'sortByName']),
 
-    //    ...mapGetters(['breedList']),
-
-    sortedImgs () {
-      function name (v) { return v.split('/')[4]; }
-      if (!this.images) { return null; }
-      const imgs = [...this.images];
-      if (this.sortByName) {
-        imgs.sort((a, b) => (name(a) < name(b) ? -1 : 1))
-      }
-      return imgs;
-    },
+    ...mapGetters(['sortedImgs']),
 
     imgs () {
       if (!this.sortedImgs) { return null; }
@@ -73,17 +61,17 @@ export default {
     },
   },
   methods: {
-    swap () {
+    swap (start = false) {
       this.swapMargin = -1;
       console.log('swap !!!!');
-      this.$store.dispatch('getAllBreedsImages', SWAP_LIMIT).then(() => {
+      this.$store.dispatch('getAllBreedsImages', SWAP_LIMIT + start).then(() => {
         this.swapMargin = SWAP_DELTA
       });
     }
   },
   mounted () {
     this.$store.commit('images', null);
-    this.$store.dispatch('getAllBreedsImages', SWAP_LIMIT + 1);
+    this.swap(true);
     this.$store.commit('currentBreed', {
       type: 'all',
       title: 'Все пёсели',

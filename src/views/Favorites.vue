@@ -25,14 +25,8 @@ export default {
   name: 'Favorites',
   components: {},
   props: [],
-  data () {
-    return {}
-  },
   computed: {
     ...mapState(['favorites']),
-  },
-  methods: {},
-  mounted () {
   },
 }
 </script>

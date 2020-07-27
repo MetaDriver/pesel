@@ -7,8 +7,6 @@
     >{{inFavorite? 'mdi-heart': 'mdi-heart-outline'}}
     </v-icon>
 
-    <!--<div>{{image}}</div>-->
-
     <div class="breed">
       {{breedName}}
     </div>
@@ -21,11 +19,6 @@ export default {
   name: 'ImgCard',
   components: {},
   props: ['image'],
-  data () {
-    return {
-      //      inFavorite: false,
-    }
-  },
   computed: {
     ...mapState(['favorites']),
     backgroundImage () {
@@ -43,9 +36,6 @@ export default {
         this.$store.commit(v ? 'addFavorite' : 'removeFavorite', this.image);
       },
     },
-  },
-  methods: {},
-  mounted () {
   },
 }
 </script>

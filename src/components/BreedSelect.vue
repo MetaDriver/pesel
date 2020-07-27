@@ -63,7 +63,6 @@
                   :key="link"
                   @click="navigateDeep(link)"
                 >{{link}}</v-chip>
-                <!--color="hsl(0, 0%, 38%)"-->
               </template>
             </div>
           </div>
@@ -116,10 +115,8 @@ export default {
     navigateTop (toHome = false) {
       if (this.$route.name === 'Home') { return; }
       if (toHome || this.breedList.current.type === 'breed') {
-        //        debugger;
         this.$router.push({ name: 'Home' });
       } else {
-        //        debugger;
         this.$router.push({ name: 'Breed', params: { breed: this.breedList.current.parent } });
       }
     },
@@ -181,7 +178,6 @@ export default {
         align-items: center;
         cursor: pointer;
         font-size: 16px;
-        /*line-height: 24px;*/
         color: hsl(0, 0%, 38%);
         .v-input--switch {
           transform: scale3d(.8, .8, 1);
@@ -204,7 +200,6 @@ export default {
             }
           }
         }
-
       }
     }
 
@@ -236,9 +231,7 @@ export default {
         cursor: pointer;
         font-size: 12px;
         line-height: 16px;
-        /*letter-spacing: 0.01em;*/
         color: hsl(0, 0%, 38%);
-        /*border-radius: 20px;*/
         background-color: hsla(0, 0%, 0%, 0) !important;
         border: 1px solid currentColor !important;
         box-shadow: 0 0 0 0.4px currentColor !important;
@@ -255,14 +248,12 @@ export default {
         box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .5);
       }
       .details-links {
-        width: 100%;
         height: 75px;
+        width: 100%;
         display: flex;
         flex-flow: row wrap;
         overflow-y: scroll;
-        width: calc(100% + 25px);
-        margin-right: -25px;
-        padding-right: 25px;
+        justify-content: flex-start;
       }
       &.opened {
          height: 108px;

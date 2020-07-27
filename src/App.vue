@@ -13,14 +13,6 @@
         </router-link>
       </div>
 
-      <!--<v-spacer/>-->
-
-          <!--<div class="nav" style="color: white">-->
-            <!--<router-link :to="{ name: 'Home' }">Home</router-link>-->
-            <!--&nbsp;-->
-            <!--<router-link :to="{ name: 'Favorites' }">Favorites</router-link>-->
-          <!--</div>-->
-
       <v-spacer/>
 
       <div class="favorites-link" :class="{active : inFavorite}"
@@ -44,14 +36,6 @@ import { mapState } from 'vuex';
 export default {
   name: 'App',
 
-  components: {
-  //    HelloWorld
-  },
-
-  data () {
-    return {
-    };
-  },
   computed: {
     ...mapState(['allBreeds', 'images']),
     inFavorite: {
@@ -63,10 +47,9 @@ export default {
       }
     },
   },
+
   mounted () {
-    this.$store.dispatch('getAllBreeds').then(() => {
-      this.$nextTick(() => console.log('$store.dispatch(\'getAllBreeds\')>>', this.allBreeds));
-    });
+    this.$store.dispatch('getAllBreeds');
   }
 }
 </script>
@@ -76,6 +59,10 @@ export default {
   .app-header.v-sheet.v-app-bar:not(.v-sheet--outlined) {
     background: hsl(252, 11%, 8%);
     box-shadow: 0px 8px 16px hsla(0, 0%, 0%, 0.55);
+    padding: 0 40px;
+    @media screen and (max-width: 960px) {
+      padding: 0;
+    }
   }
 
   .v-application .nav {

@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-const SWAP_DELTA = 150;
-const SWAP_LIMIT = 18;
+const SWAP_DELTA = 150; // подкачка начинается когда до каонца страницы остаётся 150px
+const SWAP_LIMIT = 18; // В требованиях 20. Но 20 не делится на 3 :)
 
 export default {
   name: 'Breed',
@@ -45,18 +45,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['allBreeds', 'images']),
-    ...mapGetters(['breedList']),
-
-    sortedImgs () {
-      function name (v) { return v.split('/')[4]; }
-      if (!this.images) { return null; }
-      const imgs = [...this.images];
-      if (this.sortByName) {
-        imgs.sort((a, b) => (name(a) < name(b) ? -1 : 1))
-      }
-      return imgs;
-    },
+    ...mapGetters(['sortedImgs']),
   },
   methods: {
     initState () {
@@ -66,11 +55,7 @@ export default {
         parent: this.$route.params.sub ? this.$route.params.breed : 'all',
       });
       this.$store.commit('images', null);
-      this.$store.dispatch('getImagesByBreed', {
-        breed: this.$route.params.breed,
-        sub: this.$route.params.sub,
-        count: SWAP_LIMIT
-      }).then(() => { this.swapMargin = SWAP_DELTA });
+      this.swap();
     },
     swap () {
       this.swapMargin = -1;
@@ -106,9 +91,6 @@ export default {
       .img-list {
         flex: 1 1 100%;
         overflow-y: scroll;
-        width: calc(100% + 25px);
-        /*margin-right: -25px;*/
-        padding-right: 25px;
         padding-bottom: 120px;
       }
     }
