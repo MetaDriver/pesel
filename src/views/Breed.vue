@@ -15,7 +15,7 @@
             </div>
           </div>
 
-          <div class="row justify-center">
+          <div class="row justify-center" v-show="swapMargin === -1">
             <v-progress-circular
               indeterminate
               color="primary"
@@ -41,7 +41,7 @@ export default {
   props: [],
   data () {
     return {
-      swapMargin: SWAP_DELTA,
+      swapMargin: -1,
     }
   },
   computed: {
@@ -70,7 +70,7 @@ export default {
         breed: this.$route.params.breed,
         sub: this.$route.params.sub,
         count: SWAP_LIMIT
-      });
+      }).then(() => { this.swapMargin = SWAP_DELTA });
     },
     swap () {
       this.swapMargin = -1;
